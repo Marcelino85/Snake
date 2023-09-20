@@ -116,3 +116,54 @@ function placeFood(){
 function recarregar(){
   window.location.reload()
 }
+
+let touchStartX = 0;
+let touchStartY = 0;
+
+document.addEventListener('keydown', changeDirection);
+document.addEventListener('touchstart', handleTouchStart);
+document.addEventListener('touchmove', handleTouchMove);
+
+function handleTouchStart(event) {
+  touchStartX = event.touches[0].clientX;
+  touchStartY = event.touches[0].clientY;
+}
+
+function handleTouchMove(event) {
+  if (event.touches.length === 0) {
+    return;
+  }
+
+  const touchEndX = event.touches[0].clientX;
+  const touchEndY = event.touches[0].clientY;
+
+  const deltaX = touchEndX - touchStartX;
+  const deltaY = touchEndY - touchStartY;
+
+  // Defina um limiar para evitar mudanças de direção acidentais
+  const threshold = 20;
+
+  if (Math.abs(deltaX) > Math.abs(deltaY)) {
+    // Mover horizontalmente
+    if (deltaX > threshold && velocityX !== -1) {
+      velocityX = 1;
+      velocityY = 0;
+    } else if (deltaX < -threshold && velocityX !== 1) {
+      velocityX = -1;
+      velocityY = 0;
+    }
+  } else {
+    // Mover verticalmente
+    if (deltaY > threshold && velocityY !== -1) {
+      velocityX = 0;
+      velocityY = 1;
+    } else if (deltaY < -threshold && velocityY !== 1) {
+      velocityX = 0;
+      velocityY = -1;
+    }
+  }
+
+  // Atualize as coordenadas de início para o próximo movimento
+  touchStartX = touchEndX;
+  touchStartY = touchEndY;
+}
