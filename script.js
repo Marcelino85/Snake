@@ -167,3 +167,38 @@ function handleTouchMove(event) {
   touchStartX = touchEndX;
   touchStartY = touchEndY;
 }
+
+
+// Controle do game
+// ...
+
+// Adicione um listener de clique para cada botão de controle
+document.getElementById('upButton').addEventListener('click', () => {
+  if (velocityY !== 1) {
+    velocityX = 0;
+    velocityY = -1;
+  }
+});
+
+document.getElementById('downButton').addEventListener('click', () => {
+  if (velocityY !== -1) {
+    velocityX = 0;
+    velocityY = 1;
+  }
+});
+
+document.getElementById('leftButton').addEventListener('click', () => {
+  if (velocityX !== 1) {
+    velocityX = -1;
+    velocityY = 0;
+  }
+});
+
+document.getElementById('rightButton').addEventListener('click', () => {
+  if (velocityX !== -1) {
+    velocityX = 1;
+    velocityY = 0;
+  }
+});
+
+// ...
